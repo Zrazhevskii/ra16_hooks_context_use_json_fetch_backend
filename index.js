@@ -1,7 +1,7 @@
 const Koa = require('koa');
 const cors = require('koa2-cors');
 const koaBody = require('koa-body').default;
-const { randomUUID } = require('crypto');
+// const { randomUUID } = require('crypto');
 const PORT = 3000;
 const router = require('./routes');
 const app = new Koa();

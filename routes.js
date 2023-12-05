@@ -1,28 +1,29 @@
 const Router = require('koa-router');
 const router = new Router();
 const data = require('./data.json')
-const { randomUUID } = require('crypto');
+// const { randomUUID } = require('crypto');
 
 router
     .get('/', (ctx, next) => {
-        ctx.body = 'Всем приветы!';
+        ctx.response.body = 'Всем приветы!';
         next();
     })
-    .get('/data', (ctx) => {
-        ctx.body = data;
-        ctx.response.status = 204;
+    
+router.get('/data', (ctx, next) => {
+        ctx.response.body = {status: "все OK, данные получены"};
     })
-    .get('/error', async (ctx) => {
-        ctx.body = {status: "Internal Error"};
-        ctx.response.status = 500;
+	
+router.get('/error', async (ctx, next) => {
+        ctx.response.body = {status: "Упс, а у нас тут Internal Error"};
     })
-    .get('/loading', async (ctx) => {
-        await new Promise(resolve => {
-            setTimeout(() => {
-                resolve();
-            }, 5000);
-        });
-        ctx.response.body = {status: "ok"};
-      });
+	
+router.get('/loading', async (ctx, next) => {
+    await new Promise(resolve => {
+        setTimeout(() => {
+            resolve();
+        }, 5000);
+    });
+    ctx.response.body = {status: "все OK, все загрузилось"};
+});
 
-    module.exports = router;
+module.exports = router;
